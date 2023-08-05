@@ -1,27 +1,46 @@
-# React + TypeScript + Vite
+# Post List
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bem-vindo ao projeto Post List! Este é um repositório que contém um aplicativo React desenvolvido com o gerenciador de pacotes Yarn. Neste documento, você encontrará instruções sobre como clonar o projeto, instalar as dependências necessárias e acessar o aplicativo no navegador na porta 3000.
 
-Currently, two official plugins are available:
+## Pré-requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Antes de começar, certifique-se de ter o seguinte instalado em seu sistema:
 
-## Expanding the ESLint configuration
+1. [Node.js](https://nodejs.org/) - Certifique-se de que o Node.js esteja instalado em sua máquina.
+2. [Yarn](https://yarnpkg.com/) - Verifique se você tem o Yarn instalado. Se não tiver, você pode instalá-lo globalmente usando o npm com o seguinte comando:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```bash
+npm install -g yarn
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Clonando o repositório
+
+Para começar, você precisa clonar este repositório para o seu computador local. Abra o terminal (ou prompt de comando) e execute o seguinte comando:
+
+```bash
+git clone https://github.com/kevin-almeida9/post-list.git
+```
+
+
+## Instalando dependências
+
+Depois de clonar o repositório, acesse o diretório do projeto e instale as dependências usando o Yarn. Execute os seguintes comandos:
+
+```bash
+cd post-list
+yarn install
+```
+
+Isso instalará todas as dependências necessárias para executar o aplicativo Post List.
+
+## Executando o aplicativo
+
+Com as dependências instaladas, você pode iniciar o servidor de desenvolvimento do React para executar o aplicativo. Execute o seguinte comando:
+
+```bash
+yarn dev
+```
+
+Isso iniciará o servidor de desenvolvimento e o aplicativo estará disponível no navegador em `http://localhost:3000/`.
+
+Agora você pode acessar o aplicativo Post List e começar a usá-lo!
