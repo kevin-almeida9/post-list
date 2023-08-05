@@ -22,9 +22,6 @@ function PostFormModal({visible, onClose, onAddeNewPost, validate}:Props) {
 
   const handleCreatePost = async  (values:IPostForm) => {
     try {
-      // Validar dados
-      // Aviso de Sucesso
-      // Exibir erros 
       setErrorMessage('')
       setIsLoading(true)
       
@@ -38,6 +35,7 @@ function PostFormModal({visible, onClose, onAddeNewPost, validate}:Props) {
       if(!newPost) throw new Error('Não foi possível criar uma nova Postagem, tente novamente mais tarde')
       onAddeNewPost(newPost)
       setIsLoading(false)
+      form.resetForm()
       onClose()
       console.log(response)
     } catch (err) {

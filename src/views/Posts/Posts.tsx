@@ -4,6 +4,7 @@ import { AiFillDelete  } from "react-icons/ai"
 import PostFormModal from '../../components/PostFormModal/PostFormModal'
 import CommentModal from '../../components/CommentModal/CommentModal'
 import ReactModal from 'react-modal'
+import MainLayout from '../../layouts/MainLayout/MainLayout'
 
 export interface IPost {
   id: number
@@ -48,7 +49,7 @@ function Posts() {
     getPosts()
   },[])
 
-  const handelDeletePost = (post: IPost) => {
+  const handelDeletePost = (post: IPost | null) => {
     try {
       if (!post || !post.id) throw new Error('Não foi possível encontrar o ID da postagem, tente novamente mais tarde.')
 
@@ -62,10 +63,8 @@ function Posts() {
 
   }
 
-
-
   return (
-    <div>
+    <MainLayout pageTitle='Minhas Postagens'>
       <PostFormModal
         onAddeNewPost={(newPost) => {
           setPostList(prev => [...prev,newPost])
@@ -97,6 +96,9 @@ function Posts() {
         isOpen={Boolean(deletePost)}
       >
         <p>Atenção! Ao excluir esta postagem os comentários também serão excluídos</p>
+
+        <p>{deletePost?.id} - {deletePost?.title}</p>
+      
         <button onClick={() => setDeletePost(null)}>Cancelar</button>
         <button onClick={() => handelDeletePost(deletePost)}>Excluir</button>
       </ReactModal>
@@ -113,8 +115,8 @@ function Posts() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Título</th>
-              <th>Conteúdo</th>
+              <th>Title</th>
+              <th>Body</th>
               <th>Opções</th>
             </tr>
           </thead>
@@ -136,7 +138,7 @@ function Posts() {
           </tbody>
         </table>
       </div>
-    </div>
+    </MainLayout>
   )
 }
 

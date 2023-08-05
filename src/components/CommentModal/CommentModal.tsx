@@ -114,6 +114,7 @@ function CommentModal({post, onClose}: Props) {
       isOpen={Boolean(post)}
     >
       <div className='comment-modal__header'>
+        <h1>Visualizar comentários</h1>
         <h2 className='comment-modal__header-title'>
           <span className='comment-modal__header-title-emphasis'>{post?.id}</span>
           {post?.title}
