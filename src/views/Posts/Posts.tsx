@@ -48,6 +48,20 @@ function Posts() {
     getPosts()
   },[])
 
+  const handelDeletePost = (post: IPost) => {
+    try {
+      if (!post || !post.id) throw new Error('Não foi possível encontrar o ID da postagem, tente novamente mais tarde.')
+
+      api.delete(`/posts/${post.id}`)
+      setPostList(prev => prev.filter(item => item.id !== post.id))
+      setDeletePost(null)
+
+    } catch (err) {
+      console.log(err)
+    }
+
+  }
+
 
 
   return (
@@ -83,6 +97,8 @@ function Posts() {
         isOpen={Boolean(deletePost)}
       >
         <p>Atenção! Ao excluir esta postagem os comentários também serão excluídos</p>
+        <button onClick={() => setDeletePost(null)}>Cancelar</button>
+        <button onClick={() => handelDeletePost(deletePost)}>Excluir</button>
       </ReactModal>
 
 
