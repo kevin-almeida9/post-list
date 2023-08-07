@@ -1,10 +1,12 @@
 @use 'variables';
 @use 'src/layouts/MainLayout/MainLayout.scss';
 @use 'src/views/Posts/Post.scss';
+@use 'src/components/PostFormModal/PostFormModal.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap');
 
 
-#root {
+
+body, #root {
   font-family: 'Roboto Flex', sans-serif;
   background-color: #f3f3f3;
 }
@@ -41,3 +43,28 @@ button, .button {
   }
   
 }
+
+textarea {
+  resize: none;
+}
+
+.ReactModal{
+  &__Overlay {
+    background-color: rgba($color: #000000, $alpha: 0.3) !important;
+  } 
+}
+
+input, textarea, input[type=text] {
+  font-family: 'Roboto Flex', sans-serif;
+  min-height: 1.5rem;
+  border-radius: 5px;
+  border: 1px solid #c4c4c4;
+  background-color: #fcfcfc;
+  outline: none;
+
+  &:focus {
+    background-color:#faf5f2 ;
+    border: 2px solid #F86F03;
+  }
+}
+

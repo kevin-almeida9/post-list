@@ -3,6 +3,8 @@ import ReactModal from 'react-modal'
 import { useFormik } from 'formik'
 import api from '../../services/api'
 import { IPost } from '../../views/Posts/Posts'
+import {AiFillExclamationCircle, AiOutlineClose} from 'react-icons/ai'
+
 
 type Props = {
   visible: boolean
@@ -67,39 +69,87 @@ function PostFormModal({visible, onClose, onAddeNewPost, validate}:Props) {
     onSubmit: handleCreatePost
   })
 
+  const handleClose = () => {
+    form.resetForm()
+    onClose()
+  }
+
   return (
     <ReactModal 
       shouldCloseOnOverlayClick
-      onRequestClose={ () => {
-        form.resetForm()
-        onClose()
-      }}
+      onRequestClose={handleClose}
       isOpen={visible}
+      className="post-form-modal"
+      ariaHideApp={false}
     >
-      <form onSubmit={form.handleSubmit}>
-        <label htmlFor="title"> Title</label>
-        <input 
-          type="text"
-          name="title"
-          id="title"
-          onChange={form.handleChange}
-          value={form.values.title}  
-        />      
-        {form.errors.title && <span>{form.errors.title}</span>}
+      
+      <div className='post-form-modal__header'>
+        <h1 className='post-form-modal__header-title'>Nova postagem</h1>
+        <AiOutlineClose className='post-form-modal__header-close-icon' onClick={handleClose}/>
+      </div>
 
-        <label htmlFor="body">Body</label>
-        <textarea
-          name="body" 
-          id="body" 
-          rows={10}
-          onChange={form.handleChange}
-          value={form.values.body}  
-        />
-        {form.errors.body && <span>{form.errors.body}</span>}
-    
+      <form className='post-form-modal__wrapper' onSubmit={form.handleSubmit}>
+       
+        <div className='post-form-modal__form-item'>
+          <label 
+            htmlFor="title"
+            className='post-form-modal__form-item-label'
+          > 
+            Title
+            <span className='post-form-modal__form-item-required'>*</span>
+          </label>
+          <input 
+            type="text"
+            name="title"
+            id="title"
+            onChange={form.handleChange}
+            value={form.values.title}  
+            className='post-form-modal__form-item-input'
+            placeholder='Dígite o título da sua postagem'
+          />      
+          {form.errors.title && (
+            <p className='post-form-modal__form-item-error'>
+              <AiFillExclamationCircle/>{' '}
+              {form.errors.title}
+            </p>
+          )}
+        </div>
 
-        <input type="submit" value="Criar postagem"/>
+        <div className='post-form-modal__form-item'>
+
+          <label 
+            htmlFor="body"
+            className='post-form-modal__form-item-label'
+          >
+            Body
+            <span className='post-form-modal__form-item-required'>*</span>
+          </label>
+          <textarea
+            name="body" 
+            id="body" 
+            rows={8}
+            onChange={form.handleChange}
+            value={form.values.body}  
+            className='post-form-modal__form-item-input'
+            placeholder='Dígite o conteúdo da sua postagem'
+          />
+          {form.errors.body && (
+            <p className='post-form-modal__form-item-error'>
+              <AiFillExclamationCircle/>{' '}
+              {form.errors.body}
+            </p>
+          )}
+        </div>
       </form>
+
+      <div className='post-form-modal__footer'>
+        <button 
+          className='button__primary'
+          onClick={() => form.submitForm()}
+        >
+          Criar postagem
+        </button>
+      </div>
     </ReactModal>
   )
 }

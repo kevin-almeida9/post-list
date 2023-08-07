@@ -1,6 +1,6 @@
 import {useEffect, useState, useMemo} from 'react'
 import api from '../../services/api'
-import { AiFillDelete  } from "react-icons/ai"
+import { AiFillDelete } from "react-icons/ai"
 import PostFormModal from '../../components/PostFormModal/PostFormModal'
 import CommentModal from '../../components/CommentModal/CommentModal'
 import ReactModal from 'react-modal'
