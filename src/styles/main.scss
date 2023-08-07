@@ -1,8 +1,43 @@
 @use 'variables';
+@use 'src/layouts/MainLayout/MainLayout.scss';
+@use 'src/views/Posts/Post.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100;8..144,200;8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800;8..144,900;8..144,1000&display=swap');
-@import url('src/layouts/MainLayout/MainLayout.scss');
 
 
 #root {
   font-family: 'Roboto Flex', sans-serif;
+  background-color: #f3f3f3;
+}
+
+body {
+  margin: 0;
+}
+
+button, .button {
+  height: 2rem;
+  width: 200px;
+  border: none;
+  border-radius: 5px;
+  transition: all 1s;
+
+  &__primary {
+    background-color: #F86F03;
+    color: white;
+
+    &:hover {
+      border: 1px solid #F86F03;
+      background-color: #e76400;
+    }
+  }
+
+  &__ghost {
+    background-color: white;
+    border: 1px solid #F86F03;
+    color: #F86F03;
+
+    &:hover {
+      background-color: #e76400;
+    }
+  }
+  
 }

@@ -64,7 +64,7 @@ function Posts() {
   }
 
   return (
-    <MainLayout pageTitle='Minhas Postagens'>
+    <MainLayout>
       <PostFormModal
         onAddeNewPost={(newPost) => {
           setPostList(prev => [...prev,newPost])
@@ -104,35 +104,42 @@ function Posts() {
       </ReactModal>
 
 
-      <div>
-        <button onClick={()=> setVisibelPostModal(true)}>
-          + Nova Postagem 
-        </button>
-      </div>
+      <div className='post'>
+        <div className='post__actions-wrapper'>
+          <button className="button__primary" onClick={()=> setVisibelPostModal(true)}>
+            + Nova Postagem 
+          </button>
+        </div>
       
-      <div>
-        <table>
-          <thead>
+        <table className='post__table'>
+          <thead className='post__table-header'>
             <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Body</th>
-              <th>Opções</th>
+              <th className='post__table-header-item'>ID</th>
+              <th className='post__table-header-item'>Title</th>
+              <th className='post__table-header-item'>Body</th>
+              <th className='post__table-header-item'>Opções</th>
             </tr>
           </thead>
-          <tbody>
+
+          <tbody className='post__table-content '>
             {Array.isArray(sortedPosts) && sortedPosts.map(post => (
-              <tr key={post.id} onClick={()=> {setSelectedPost(post)}}>
-               <td>{post.id}</td>
-               <td>{post.title}</td>
-               <td>{post.body}</td>
-               <td>
-                  <AiFillDelete onClick={(e: Event) => {
+              <tr 
+                key={post.id} 
+                onClick={()=> {setSelectedPost(post)}}
+                className='post__table-content-row'
+              >
+               <td className='post__table-content-cell'>{post.id}</td>
+               <td className='post__table-content-cell'>{post.title}</td>
+               <td className='post__table-content-cell'>{post.body}</td>
+               <td className='post__table-content-cell post__table-content-cell--action'>
+                  <AiFillDelete 
+                    className="post__delete-icon"
+                    onClick={(e: Event) => {
                       e.stopPropagation()
                       setDeletePost(post)
                     }} 
                   />
-                </td>
+               </td>
              </tr>
             ))}
           </tbody>

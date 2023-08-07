@@ -1,0 +1,56 @@
+.post {
+
+  &__actions-wrapper {
+    margin-bottom: 1rem;
+  }
+
+  &__table {
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border-collapse:collapse;
+    border-radius: 10px;
+  }
+
+  &__table-header {
+    background-color: #F86F03;
+    color: white;
+    text-align: left;
+    height: 3rem;
+  }
+
+  &__table-header-item {
+    padding:  .25rem .5rem;
+  }
+
+  &__table-content {
+    text-align: justify;
+  }
+
+  &__table-content-row {
+    height: 2.5rem;
+    border-bottom: 1px solid #c4c4c4;
+    font-size: 0.75rem;
+    cursor: pointer;
+
+    &:hover {
+      transition: all .5s;
+      background-color: #f8e3d2;
+      border-bottom-color: #F86F03;
+    }
+  }
+
+  &__table-content-cell {
+    padding: .4rem;
+
+    &--action {
+      text-align: center;
+    }
+  }
+
+  &__delete-icon{
+    color: #f12c2c;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+}
