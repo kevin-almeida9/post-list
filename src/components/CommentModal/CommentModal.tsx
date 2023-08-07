@@ -4,6 +4,7 @@ import ReactModal from 'react-modal'
 import axios from 'axios'
 import api from '../../services/api'
 import { useFormik } from 'formik'
+import { AiOutlineClose,AiFillExclamationCircle} from 'react-icons/ai'
 
 type Props = {
   post: IPost | null
@@ -100,7 +101,6 @@ function CommentModal({post, onClose}: Props) {
 
   }
 
-
   const form = useFormik({
     initialValues: {title: '', body: ''},
     validate: validateFields,
@@ -112,55 +112,93 @@ function CommentModal({post, onClose}: Props) {
       shouldCloseOnOverlayClick
       onRequestClose={onClose}
       isOpen={Boolean(post)}
+      className='comment-modal'
     >
       <div className='comment-modal__header'>
-        <h1>Visualizar comentários</h1>
-        <h2 className='comment-modal__header-title'>
-          <span className='comment-modal__header-title-emphasis'>{post?.id}</span>
-          {post?.title}
-        </h2> 
+        <h1 className='comment-modal__header-title'>Visualizar comentários</h1>
+        <AiOutlineClose className='comment-modal__header-close-icon' onClick={onClose}/>
       </div>
 
-      <div className='comment-modal__wrapper'>
+      <div className='comment-modal__comments'>
+        <h2 className='comment-modal__post-title'>
+         {post?.id} {' - '}  {post?.title}
+        </h2> 
+
         {
           Array.isArray(comments) && comments.map(comment => (
             <div key={comment.id} className='comment-modal__item-container'>
-              <p className='comment-modal__item-email'>{comment.email}</p>
-              <p className='comment-modal__item-title'>{comment.name}</p>
+             <div className='comment-modal__item-header'>
+              <p className='comment-modal__item-header-title'>{comment.name}</p>
+              <p className='comment-modal__item-header-email'>{comment.email}</p>
+             </div>
               <p className='comment-modal__item-text'>{comment.body}</p>
             </div>
           ))
         }
       </div>
 
-      <div className='comment-modal__form'>
-      <form onSubmit={form.handleSubmit}>
-        <label htmlFor="title"> Title</label>
-          <input 
-            type="text"
-            name="title"
-            id="title"
-            onChange={form.handleChange}
-            value={form.values.title}  
-          />
-      
-        {form.errors.title && <span>{form.errors.title}</span>}
+      <form className='comment-modal__form' onSubmit={form.handleSubmit}>
+       
+       <div className='comment-modal__form-item'>
+         <label 
+           htmlFor="title"
+           className='comment-modal__form-item-label'
+         > 
+           Title
+           <span className='comment-modal__form-item-required'>*</span>
+         </label>
+         <input 
+           type="text"
+           name="title"
+           id="title"
+           onChange={form.handleChange}
+           value={form.values.title}  
+           className='comment-modal__form-item-input'
+           placeholder='Dígite o título da sua postagem'
+         />      
+         {form.errors.title && (
+           <p className='comment-modal__form-item-error'>
+             <AiFillExclamationCircle/>{' '}
+             {form.errors.title}
+           </p>
+         )}
+       </div>
 
-        <label htmlFor="body">Body</label>
-        <textarea
-          name="body" 
-          id="body" 
-          rows={10}
-          onChange={form.handleChange}
-          value={form.values.body}  
-        />
-        {form.errors.body && <span>{form.errors.body}</span>}
-    
+       <div className='comment-modal__form-item'>
 
-        <input type="submit" value="Criar postagem"/>
-      </form>
+         <label 
+           htmlFor="body"
+           className='comment-modal__form-item-label'
+         >
+           Body
+           <span className='comment-modal__form-item-required'>*</span>
+         </label>
+         <textarea
+           name="body" 
+           id="body" 
+           rows={4}
+           onChange={form.handleChange}
+           value={form.values.body}  
+           className='comment-modal__form-item-input'
+           placeholder='Dígite o conteúdo da sua postagem'
+         />
+         {form.errors.body && (
+           <p className='comment-modal__form-item-error'>
+             <AiFillExclamationCircle/>{' '}
+             {form.errors.body}
+           </p>
+         )}
+       </div>
+     </form>
 
-      </div>
+     <div className='comment-modal__footer'>
+       <button 
+         className='button__primary'
+         onClick={() => form.submitForm()}
+       >
+          Adicionar comentário
+       </button>
+     </div>
     </ReactModal>
   )
 }
