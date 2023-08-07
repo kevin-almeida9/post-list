@@ -4,6 +4,7 @@ import { useFormik } from 'formik'
 import api from '../../services/api'
 import { IPost } from '../../views/Posts/Posts'
 import {AiFillExclamationCircle, AiOutlineClose} from 'react-icons/ai'
+import { useAlert } from 'react-alert'
 
 
 type Props = {
@@ -20,11 +21,10 @@ interface IPostForm {
 
 function PostFormModal({visible, onClose, onAddeNewPost, validate}:Props) {
   const [isLoading, setIsLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const alert = useAlert()
 
   const handleCreatePost = async  (values:IPostForm) => {
     try {
-      setErrorMessage('')
       setIsLoading(true)
       
       const invalidMessage = validate(values)
@@ -39,9 +39,9 @@ function PostFormModal({visible, onClose, onAddeNewPost, validate}:Props) {
       setIsLoading(false)
       form.resetForm()
       onClose()
-      console.log(response)
+      alert.success('Postagem criada com sucesso.')
     } catch (err) {
-      setErrorMessage(err.message)
+      alert.error(err.message)
       console.log(err)      
       setIsLoading(false)
     }

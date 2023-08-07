@@ -5,6 +5,7 @@ import PostFormModal from '../../components/PostFormModal/PostFormModal'
 import CommentModal from '../../components/CommentModal/CommentModal'
 import ReactModal from 'react-modal'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
+import { useAlert } from 'react-alert'
 
 export interface IPost {
   id: number
@@ -15,11 +16,12 @@ export interface IPost {
 
 function Posts() {
   const [isLoading, setIsLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
   const [postList, setPostList] = useState<Array<IPost>>([])
   const [visiblePostModal, setVisibelPostModal] = useState(false)
   const [selectedPost, setSelectedPost] = useState<IPost | null>(null)
   const [deletePost, setDeletePost] = useState<IPost | null>(null)
+  const alert = useAlert()
+
 
   const sortedPosts = useMemo(
     () =>postList.sort((a, b) => {
@@ -32,14 +34,13 @@ function Posts() {
     const getPosts = async () => {
       try {
         setIsLoading(true)
-        setErrorMessage('')
         const response = await api.get<Array<IPost>>('/posts')
         const posts = response.data
   
         if (!posts || !Array.isArray(posts)) throw new Error('Não foi possível encontar suas postagens, tente novamente mais tarde.')
         setPostList(posts)
       } catch (err) {
-        setErrorMessage(err.message)
+        alert.error(err.message)
         console.log(err)
       } finally {
         setIsLoading(false)
@@ -56,15 +57,17 @@ function Posts() {
       api.delete(`/posts/${post.id}`)
       setPostList(prev => prev.filter(item => item.id !== post.id))
       setDeletePost(null)
-
+      alert.success('Postagem deletada com sucesso')
     } catch (err) {
+      alert.error(err.message)
       console.log(err)
     }
 
   }
 
   return (
-    <MainLayout>
+  <>
+  
       <PostFormModal
         onAddeNewPost={(newPost) => {
           setPostList(prev => [...prev,newPost])
@@ -81,12 +84,13 @@ function Posts() {
         }}
       />
 
+      {selectedPost &&
       <CommentModal
         post={selectedPost}
         onClose={() => {
           setSelectedPost(null)
         }}
-      />
+      />}
       
       <ReactModal 
         shouldCloseOnOverlayClick
@@ -155,8 +159,16 @@ function Posts() {
           </tbody>
         </table>
       </div>
+    </>
+  )
+}
+
+function PostsView () {
+  return  (
+    <MainLayout>
+      <Posts/>
     </MainLayout>
   )
 }
 
-export default Posts
+export default PostsView

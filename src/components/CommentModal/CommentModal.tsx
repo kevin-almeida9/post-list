@@ -5,6 +5,7 @@ import axios from 'axios'
 import api from '../../services/api'
 import { useFormik } from 'formik'
 import { AiOutlineClose,AiFillExclamationCircle} from 'react-icons/ai'
+import { useAlert } from 'react-alert'
 
 type Props = {
   post: IPost | null
@@ -29,7 +30,7 @@ interface ICommentForm  {
 function CommentModal({post, onClose}: Props) {
   const [comments, setComments] = useState<Array<IComment>>([])
   const [isLoading, setIsLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const alert = useAlert()
 
 
   
@@ -54,7 +55,6 @@ function CommentModal({post, onClose}: Props) {
     const getPostComments = async (post:IPost | null) => {
       try {
         setIsLoading(true)
-        setErrorMessage('')
 
         if (!post || !post.id) throw new Error("Não foi possível encontrar o ID da postagem, tente novamente mais tarde.")
         
@@ -68,7 +68,7 @@ function CommentModal({post, onClose}: Props) {
       } catch (err) {
         if (!axios.isCancel(err)){
           setIsLoading(false)
-          setErrorMessage(err.message)
+          alert.error(err.message)
         }
         console.log(err.message)
       }
@@ -95,7 +95,9 @@ function CommentModal({post, onClose}: Props) {
       newComment.name = values.title
       form.resetForm()
       comments.push(newComment)
+      alert.success('Comentário adicionado com sucesso.')
     } catch (err) {
+      alert.error(err.message)
       console.log(err)      
     }
 
