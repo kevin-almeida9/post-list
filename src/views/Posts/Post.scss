@@ -53,4 +53,64 @@
     font-size: 1rem;
     cursor: pointer;
   }
+
+  &__delete-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    min-width: 300px;
+    width: 40%;
+
+    background-color: white ;
+    border-radius: 10px;
+    padding: 1rem;
+    transform: translate(-50%,-50%);
+  }
+
+  &__delete-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: .5rem;
+    padding-bottom: .5rem;
+    border-bottom:1px solid #c4c4c4 ;
+  }
+
+  &__delete-modal-header-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__delete-modal-header-close-icon {
+    cursor: pointer;
+    margin-right: .5rem;
+  }
+
+  &__delete-modal-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-left: .5rem;
+  }
+
+  &__delete-modal-content-warning {
+    color: #f12c2c;
+    font-weight: 400;
+  }
+
+  &__delete-modal-content-item {
+    font-size: .75rem;
+    font-style: italic;
+  }
+
+  &__delete-modal-footer {
+    margin: auto;
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+  }
+
+
 }

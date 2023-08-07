@@ -1,6 +1,6 @@
 import {useEffect, useState, useMemo} from 'react'
 import api from '../../services/api'
-import { AiFillDelete } from "react-icons/ai"
+import { AiFillDelete, AiOutlineClose } from "react-icons/ai"
 import PostFormModal from '../../components/PostFormModal/PostFormModal'
 import CommentModal from '../../components/CommentModal/CommentModal'
 import ReactModal from 'react-modal'
@@ -94,13 +94,23 @@ function Posts() {
           setDeletePost(null)
         }}
         isOpen={Boolean(deletePost)}
+        className='post__delete-modal'
       >
-        <p>Atenção! Ao excluir esta postagem os comentários também serão excluídos</p>
+        <div className='post__delete-modal-header'>
+          <h1 className='post__delete-modal-header-title'>Deletar postagem</h1>
+          <AiOutlineClose className='post__delete-modal-header-close-icon' onClick={() => setDeletePost(null)}/>
+        </div>
 
-        <p>{deletePost?.id} - {deletePost?.title}</p>
+        <div className='post__delete-modal-content'>
+          <p className='post__delete-modal-content-warning'>Atenção! Ao excluir esta postagem os comentários também serão excluídos</p>
+          <p className='post__delete-modal-content-item'>{deletePost?.id} - {deletePost?.title}</p>
+        </div>
       
-        <button onClick={() => setDeletePost(null)}>Cancelar</button>
-        <button onClick={() => handelDeletePost(deletePost)}>Excluir</button>
+        <div className='post__delete-modal-footer'>
+          <button className="button__ghost" onClick={() => setDeletePost(null)}>Cancelar</button>
+          <button className="button__primary" onClick={() => handelDeletePost(deletePost)}>Excluir</button>
+        </div>
+        
       </ReactModal>
 
 
